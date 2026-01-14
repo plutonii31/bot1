@@ -102,7 +102,7 @@ def send_text(message):
     if promomode:
         bot.send_message(message.chat.id, "Эта функция пока ещё в разработке.")
         promo=message.text
-        if promo in codes.keys:
+        if promo in codes.keys():
             pass
     print(id)
     c = info.split(",")[0].split(":")[1]
@@ -156,5 +156,6 @@ def send_text(message):
 
 
 bot.polling(none_stop=True)
+
 
 
