@@ -3,7 +3,7 @@ import telebot
 bot = telebot.TeleBot("8431372366:AAEpwC8aSYe_1_8WgS4WYabhz8UUfySWxAo")
 keyboard1 = telebot.types.ReplyKeyboardMarkup(True)
 keyboard1.row("Ежедневная награда", "Магазин")
-keyboard1.row("Перевод", "Задания")
+keyboard1.row("Перевод", "Задания","промокод")
 keyboard3 = telebot.types.ReplyKeyboardMarkup(True)
 keyboard3.row("10", "50", "100", "300")
 keyboard3.row("500", "1000", "1500", "3000")
@@ -41,9 +41,10 @@ def start(message):
 
 
 quests = ["задание", "задание2"]
-
+codes={"CodeFor10Coins":10,"Promo159":159}
 idmode = False
 summode = False
+promomode=False
 idu = None
 
 
@@ -64,6 +65,9 @@ def send_text(message):
 
             bot.send_message(message.chat.id, "Какую сумму вы собираетесь перевести?", reply_markup=keyboard3)
             summode = True
+            return
+        else:
+            bot.send_message(message.chat.id, "Это не число.", reply_markup=keyboard3)
             return
 
     if summode:
@@ -95,6 +99,11 @@ def send_text(message):
                 file.write("".join(in2))
             bot.send_message(message.chat.id, "Успешно переведено.", reply_markup=keyboard1)
             return
+    if promomode:
+        bot.send_message(message.chat.id, "Эта функция пока ещё в разработке.")
+        promo=message.text
+        if promo in codes.keys:
+            pass
     print(id)
     c = info.split(",")[0].split(":")[1]
     mes = text.lower()
@@ -140,6 +149,11 @@ def send_text(message):
         idmode = True
     if mes == "магазин":
         bot.send_message(message.chat.id, "Эта функция пока ещё в разработке.")
+    if mes=="промокод":
+        promomode=True
+    else:
+        bot.send_message(message.chat.id, "Неизвестная команда.")
 
 
 bot.polling(none_stop=True)
+
