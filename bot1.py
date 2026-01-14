@@ -51,6 +51,7 @@ idu = None
 @bot.message_handler(content_types=["text"])
 def send_text(message):
     global idmode, idu, summode,promomode
+    
     chat = message.chat.id
 
     id = message.from_user.id
@@ -58,6 +59,9 @@ def send_text(message):
     text = message.text
     info = get_info(id, chat)[0]
     in2 = get_info(id, chat)[1]
+    
+    c = info.split(",")[0].split(":")[1]
+    mes = text.lower()
     if idmode:
         if text.isdigit():
             idmode = False
@@ -70,7 +74,7 @@ def send_text(message):
             bot.send_message(message.chat.id, "Это не число.", reply_markup=keyboard3)
             return
 
-    if summode:
+    elif summode:
         if text.isdigit():
             summode = False
             sum = int(message.text)
@@ -105,9 +109,6 @@ def send_text(message):
         if promo in codes.keys():
             pass
         promomode=False
-    print(id)
-    c = info.split(",")[0].split(":")[1]
-    mes = text.lower()
     elif mes == "ежедневная награда":
         if info.split(",")[2] == "0":
             with open("fil", "w") as file:
@@ -157,6 +158,7 @@ def send_text(message):
 
 
 bot.polling(none_stop=True)
+
 
 
 
