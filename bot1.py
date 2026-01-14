@@ -3,7 +3,7 @@ import telebot
 bot = telebot.TeleBot("8431372366:AAEpwC8aSYe_1_8WgS4WYabhz8UUfySWxAo")
 keyboard1 = telebot.types.ReplyKeyboardMarkup(True)
 keyboard1.row("Ежедневная награда", "Магазин")
-keyboard1.row("Перевод", "Задания","промокод")
+keyboard1.row("Перевод", "Задания","Промокод")
 keyboard3 = telebot.types.ReplyKeyboardMarkup(True)
 keyboard3.row("10", "50", "100", "300")
 keyboard3.row("500", "1000", "1500", "3000")
@@ -99,15 +99,16 @@ def send_text(message):
                 file.write("".join(in2))
             bot.send_message(message.chat.id, "Успешно переведено.", reply_markup=keyboard1)
             return
-    if promomode:
+    elif promomode:
         bot.send_message(message.chat.id, "Эта функция пока ещё в разработке.")
         promo=message.text
         if promo in codes.keys():
             pass
+        promomode=False
     print(id)
     c = info.split(",")[0].split(":")[1]
     mes = text.lower()
-    if mes == "ежедневная награда":
+    elif mes == "ежедневная награда":
         if info.split(",")[2] == "0":
             with open("fil", "w") as file:
                 in2[in2.index(info)] = str(id) + ":" + str(
@@ -126,13 +127,13 @@ def send_text(message):
             mes = text.lower
         else:
             bot.send_message(message.chat.id, "Вы уже взяли вашу награду сегодня!")
-    if mes == "задания":
+    elif mes == "задания":
         bot.send_message(message.chat.id, "Ваши задачи на сегодня:")
         x = 0
         for i in quests:
             x += 1
             bot.send_message(message.chat.id, str(x) + ") " + i)
-    if mes == "перевод":
+    elif mes == "перевод":
         bot.send_message(message.chat.id, "Кому вы хотите перевести койны? (Введите ID)")
         u = []
         x = 0
@@ -147,15 +148,16 @@ def send_text(message):
         bot.send_message(message.chat.id, str(len(in2)) + ") " + in2[-1].split(",")[0].split(":")[0],
                          reply_markup=keyboard2)
         idmode = True
-    if mes == "магазин":
+    elif mes == "магазин":
         bot.send_message(message.chat.id, "Эта функция пока ещё в разработке.")
-    if mes=="промокод":
+    elif mes=="промокод":
         promomode=True
     else:
         bot.send_message(message.chat.id, "Неизвестная команда.")
 
 
 bot.polling(none_stop=True)
+
 
 
 
