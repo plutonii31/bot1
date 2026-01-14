@@ -50,7 +50,7 @@ idu = None
 
 @bot.message_handler(content_types=["text"])
 def send_text(message):
-    global idmode, idu, summode
+    global idmode, idu, summode,promomode
     chat = message.chat.id
 
     id = message.from_user.id
@@ -156,4 +156,5 @@ def send_text(message):
 
 
 bot.polling(none_stop=True)
+
 
